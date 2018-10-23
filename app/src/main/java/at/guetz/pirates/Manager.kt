@@ -9,15 +9,22 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object Manager {
 
-    fun loadPirateShips() {
-        val retrofit = Retrofit.Builder()
-                .baseUrl("https://assets.shpock.com/android/interview-test/")
-                .addConverterFactory(GsonConverterFactory.create()).build()
-        val webservice = retrofit.create(WebService::class.java)
-        webservice.getShips().enqueue(object : Callback<PirateShipResponse> {
+    lateinit var webService: WebService
+
+    val shipList: MutableList<PirateShip> = mutableListOf()
+
+    fun loadPirateShips(callback: PirateShipCallback) {
+        if (!shipList.isEmpty()) return callback.shipsLoaded(shipList)
+
+
+        webService.getShips().enqueue(object : Callback<PirateShipResponse> {
             override fun onResponse(call: Call<PirateShipResponse>, response: Response<PirateShipResponse>) {
-                if (response.isSuccessful && response.body() != null && response.body()!!.success) {
-                    Log.d("ships", "Ships loaded:" + response.body())
+                val shipResponse = response.body()
+                if (response.isSuccessful && shipResponse != null && shipResponse.success) {
+                    Log.d("ships", "Ships loaded:" + shipResponse)
+                    shipList.clear()
+                    shipList.addAll(shipResponse.ships.filterNotNull())
+                    callback.shipsLoaded(shipList)
                 } else {
                     Log.d("ships", "Error")
                 }
@@ -27,5 +34,16 @@ object Manager {
                 TODO("not implemented")
             }
         })
+    }
+
+    fun init() {
+        val retrofit = Retrofit.Builder()
+                .baseUrl("https://assets.shpock.com/android/interview-test/")
+                .addConverterFactory(GsonConverterFactory.create()).build()
+        webService = retrofit.create(WebService::class.java)
+    }
+
+    interface PirateShipCallback {
+        fun shipsLoaded(ships: List<PirateShip>)
     }
 }
