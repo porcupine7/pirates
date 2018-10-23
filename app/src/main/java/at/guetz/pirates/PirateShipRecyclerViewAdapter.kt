@@ -4,11 +4,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 
-
 import at.guetz.pirates.PirateShipFragment.OnListFragmentInteractionListener
-
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_pirateship.view.*
 
 /**
@@ -17,8 +17,8 @@ import kotlinx.android.synthetic.main.fragment_pirateship.view.*
  * TODO: Replace the implementation with code for your data type.
  */
 class PirateShipRecyclerViewAdapter(
-        private val mValues: List<PirateShip>,
-        private val mListener: OnListFragmentInteractionListener?)
+        private val values: List<PirateShip>,
+        private val listener: OnListFragmentInteractionListener?)
     : RecyclerView.Adapter<PirateShipRecyclerViewAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
@@ -26,7 +26,7 @@ class PirateShipRecyclerViewAdapter(
     init {
         mOnClickListener = View.OnClickListener { v ->
             val item = v.tag as PirateShip
-            mListener?.onPirateShipListInteraction(item)
+            listener?.onPirateShipListInteraction(item)
         }
     }
 
@@ -37,9 +37,10 @@ class PirateShipRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = mValues[position]
-        holder.mIdView.text = item.title
-        holder.mContentView.text = item.greeting
+        val item = values[position]
+        holder.title.text = item.title
+        holder.price.text = item.price.toString()
+        Picasso.get().load(item.image).resize(100, 100).into(holder.image)
 
         with(holder.mView) {
             tag = item
@@ -47,14 +48,15 @@ class PirateShipRecyclerViewAdapter(
         }
     }
 
-    override fun getItemCount(): Int = mValues.size
+    override fun getItemCount(): Int = values.size
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mIdView: TextView = mView.item_number
-        val mContentView: TextView = mView.content
+        val image: ImageView = mView.item_image
+        val title: TextView = mView.item_title
+        val price: TextView = mView.item_price
 
         override fun toString(): String {
-            return super.toString() + " '" + mContentView.text + "'"
+            return super.toString() + " '" + title + "'"
         }
     }
 }
