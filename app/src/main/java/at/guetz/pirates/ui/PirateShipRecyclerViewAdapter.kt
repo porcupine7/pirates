@@ -1,4 +1,4 @@
-package at.guetz.pirates
+package at.guetz.pirates.ui
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import at.guetz.pirates.data.PirateShip
+import at.guetz.pirates.R
 
-import at.guetz.pirates.PirateShipListFragment.OnListFragmentInteractionListener
+import at.guetz.pirates.ui.PirateShipListFragment.OnListFragmentInteractionListener
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_pirateship.view.*
 
@@ -40,7 +42,7 @@ class PirateShipRecyclerViewAdapter(
         val item = values[position]
         holder.title.text = item.title
         holder.price.text = item.price.toString()
-        Picasso.get().load(item.image).resize(100, 100).into(holder.image)
+        Picasso.get().load(item.image).resize(100, 100).centerCrop().into(holder.image)
 
         with(holder.view) {
             tag = item

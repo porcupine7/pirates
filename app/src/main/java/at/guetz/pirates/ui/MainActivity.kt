@@ -1,7 +1,10 @@
-package at.guetz.pirates
+package at.guetz.pirates.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import at.guetz.pirates.model.Manager
+import at.guetz.pirates.data.PirateShip
+import at.guetz.pirates.R
 
 class MainActivity : AppCompatActivity(), PirateShipListFragment.OnListFragmentInteractionListener, Manager.PirateShipCallback {
 
@@ -24,8 +27,8 @@ class MainActivity : AppCompatActivity(), PirateShipListFragment.OnListFragmentI
         Manager.init()
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         Manager.loadPirateShips(this)
     }
 }

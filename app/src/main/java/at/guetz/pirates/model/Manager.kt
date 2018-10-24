@@ -1,6 +1,8 @@
-package at.guetz.pirates
+package at.guetz.pirates.model
 
 import android.util.Log
+import at.guetz.pirates.data.PirateShip
+import at.guetz.pirates.data.PirateShipResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,7 +17,6 @@ object Manager {
 
     fun loadPirateShips(callback: PirateShipCallback) {
         if (!shipList.isEmpty()) return callback.shipsLoaded(shipList)
-
 
         webService.getShips().enqueue(object : Callback<PirateShipResponse> {
             override fun onResponse(call: Call<PirateShipResponse>, response: Response<PirateShipResponse>) {

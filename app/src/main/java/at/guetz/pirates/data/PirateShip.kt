@@ -1,4 +1,4 @@
-package at.guetz.pirates
+package at.guetz.pirates.data
 
 data class PirateShip(val id: Int, val title: String = "", val description: String, val price: Int,
                       val image: String, val greeting_type: String) {

@@ -1,5 +1,6 @@
-package at.guetz.pirates
+package at.guetz.pirates.model
 
+import at.guetz.pirates.data.PirateShipResponse
 import retrofit2.Call
 import retrofit2.http.GET
 

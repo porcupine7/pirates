@@ -1,4 +1,4 @@
-package at.guetz.pirates
+package at.guetz.pirates.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +8,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import at.guetz.pirates.model.Manager
+import at.guetz.pirates.data.PirateShip
+import at.guetz.pirates.R
 
 /**
  * A fragment representing a list of Items.

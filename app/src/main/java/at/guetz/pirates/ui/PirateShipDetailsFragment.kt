@@ -1,4 +1,4 @@
-package at.guetz.pirates
+package at.guetz.pirates.ui
 
 
 import android.app.AlertDialog
@@ -7,16 +7,14 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import at.guetz.pirates.data.PirateShip
+import at.guetz.pirates.R
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_pirate_details.view.*
-import android.content.DialogInterface
+import kotlinx.android.synthetic.main.fragment_pirateship_details.view.*
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val ARG_SHIP = "ship"
 
 /**
  * A simple [Fragment] subclass.
@@ -39,14 +37,14 @@ class PirateShipDetailsFragment : Fragment(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            val pirateShipJson = it.getString(ARG_PARAM1)
+            val pirateShipJson = it.getString(ARG_SHIP)
             pirateShip = Gson().fromJson(pirateShipJson, PirateShip::class.java)
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_pirate_details, container, false)
+        val view = inflater.inflate(R.layout.fragment_pirateship_details, container, false)
         Picasso.get().load(pirateShip.image).into(view.image_ship)
         view.text_description.text = pirateShip.description
         view.text_title.text = pirateShip.title
@@ -61,7 +59,7 @@ class PirateShipDetailsFragment : Fragment(), View.OnClickListener {
         fun newInstance(param1: PirateShip) =
                 PirateShipDetailsFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ARG_PARAM1, Gson().toJson(param1))
+                        putString(ARG_SHIP, Gson().toJson(param1))
                     }
                 }
     }
