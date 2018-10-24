@@ -14,4 +14,3 @@ data class PirateShip(val id: Int, val title: String = "", val description: Stri
         }
     }
 }
-

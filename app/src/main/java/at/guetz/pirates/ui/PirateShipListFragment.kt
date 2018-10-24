@@ -28,7 +28,6 @@ class PirateShipListFragment : Fragment() {
         if (view is RecyclerView) {
             with(view) {
                 layoutManager = LinearLayoutManager(context)
-                //TODO maybe change singleton approach
                 adapter = PirateShipRecyclerViewAdapter(Manager.shipList, listener)
             }
         }
@@ -48,7 +47,6 @@ class PirateShipListFragment : Fragment() {
         super.onDetach()
         listener = null
     }
-
 
     interface OnListFragmentInteractionListener {
 
