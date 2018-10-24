@@ -3,15 +3,19 @@ package at.guetz.pirates
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
-class MainActivity : AppCompatActivity(), PirateShipFragment.OnListFragmentInteractionListener, Manager.PirateShipCallback {
+class MainActivity : AppCompatActivity(), PirateShipListFragment.OnListFragmentInteractionListener, Manager.PirateShipCallback {
 
     override fun shipsLoaded(ships: List<PirateShip>) {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.container, PirateShipFragment()).commit()
+                .replace(R.id.container, PirateShipListFragment()).commit()
     }
 
     override fun onPirateShipListInteraction(item: PirateShip?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (item == null) return
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container, PirateShipDetailsFragment.newInstance(item))
+                .addToBackStack("")
+                .commit()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

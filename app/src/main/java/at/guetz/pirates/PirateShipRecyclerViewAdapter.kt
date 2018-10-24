@@ -7,24 +7,24 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 
-import at.guetz.pirates.PirateShipFragment.OnListFragmentInteractionListener
+import at.guetz.pirates.PirateShipListFragment.OnListFragmentInteractionListener
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_pirateship.view.*
 
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the
  * specified [OnListFragmentInteractionListener].
- * TODO: Replace the implementation with code for your data type.
+ *
  */
 class PirateShipRecyclerViewAdapter(
         private val values: List<PirateShip>,
         private val listener: OnListFragmentInteractionListener?)
     : RecyclerView.Adapter<PirateShipRecyclerViewAdapter.ViewHolder>() {
 
-    private val mOnClickListener: View.OnClickListener
+    private val onclickListener: View.OnClickListener
 
     init {
-        mOnClickListener = View.OnClickListener { v ->
+        onclickListener = View.OnClickListener { v ->
             val item = v.tag as PirateShip
             listener?.onPirateShipListInteraction(item)
         }
@@ -42,18 +42,18 @@ class PirateShipRecyclerViewAdapter(
         holder.price.text = item.price.toString()
         Picasso.get().load(item.image).resize(100, 100).into(holder.image)
 
-        with(holder.mView) {
+        with(holder.view) {
             tag = item
-            setOnClickListener(mOnClickListener)
+            setOnClickListener(onclickListener)
         }
     }
 
     override fun getItemCount(): Int = values.size
 
-    inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val image: ImageView = mView.item_image
-        val title: TextView = mView.item_title
-        val price: TextView = mView.item_price
+    inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        val image: ImageView = view.item_image
+        val title: TextView = view.item_title
+        val price: TextView = view.item_price
 
         override fun toString(): String {
             return super.toString() + " '" + title + "'"
